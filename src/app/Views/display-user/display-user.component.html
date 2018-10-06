@@ -1,0 +1,60 @@
+<nav class="navbar navbar-dark" style="margin-bottom:3%;background-color:#2081ad;">
+    <a class="navbar-brand" href="#">Wysilab</a>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-header text-white" style="background-color:#2081ad;">
+                    <h5 align="center ">Tri par</h5>
+                </div>
+                <div class="card-body">
+                    <div class="radio">
+                        <label><a href (click)="sortTable('nom')">Nom</a></label>
+                    </div>
+                    <div class="radio">
+                        <label><a href (click)="sortTable('prenom')">Prénom</a></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 row">
+            <div class="col-md-4 spacing-bottom" *ngFor="let user of users|sorting:path:order |paginate: { itemsPerPage: 5, currentPage: page}">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="http://pngimages.net/sites/default/files/user-png-image-15189.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.nom}} {{user.prenom}}</h5>
+                        <p class="card-text">{{user.adresse_mail}}</p>
+                        <button (click)="openLg(content,user._id)" class="btn btn-primary">
+                            Objets
+                    </button>
+                    </div>
+                </div>
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h5 class="modal-title" align="center">Liste des objets</h5>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card border-primary mb-3" *ngFor="let objet of objets">
+                            <div class="card-body text-primary">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Nom: {{objet.nom}}</h5>
+                                        <h6>Déscription: {{objet.description}}</h6>
+                                        <h6>Prix: {{objet.prix}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-md-12 " align="center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
